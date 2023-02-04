@@ -1,9 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'Controller.dart';
+import 'loginPage.dart';
 
-void main() {
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
@@ -27,7 +35,23 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasError) {
+            return Text(snapshot.error.toString());
+          }
+
+          if (snapshot.connectionState == ConnectionState.active) {
+            if (snapshot.data == null) {
+              return LoginPage();
+            } else {
+              return MyHomePage(title: 'Flutter Demo Home Page');
+            }
+          }
+          return Center(child: CircularProgressIndicator(),);
+        },
+      ),
     );
   }
 }
