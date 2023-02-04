@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:state/Pages/page1.dart';
 import 'package:state/home.dart';
 import 'package:state/Pages/page2.dart';
@@ -30,7 +32,6 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const home(),
       getPages: [
         GetPage(name: '/', page: () => home()),
         GetPage(name: '/page1', page: () => page1()),
