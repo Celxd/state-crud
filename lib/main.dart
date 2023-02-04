@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -5,12 +6,27 @@ import 'package:get/get.dart';
 import 'package:state/crud.dart';
 
 import 'dart:ui';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:state/Pages/page1.dart';
+import 'package:state/home.dart';
+import 'package:state/Pages/page2.dart';
 
 import 'Controller.dart';
+import 'loginPage.dart';
+
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
@@ -20,7 +36,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -44,39 +60,28 @@ class MyHomePage extends StatefulWidget {
   // always marked "final".
 
   final String title;
+      home: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasError) {
+            return Text(snapshot.error.toString());
+          }
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final Controller control = Get.put(Controller());
-
-  @override
-  Widget build(BuildContext context) {
-    
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+          if (snapshot.connectionState == ConnectionState.active) {
+            if (snapshot.data == null) {
+              return LoginPage();
+            } else {
+              return MyHomePage(title: 'Flutter Demo Home Page');
+            }
+          }
+          return Center(child: CircularProgressIndicator(),);
+        },
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-           children: [
-            Text("Jumlah "),
-            Obx(() => Text("${control.count.toString()}")),
-            ElevatedButton(
-              onPressed: () {
-                control.increment();
-              },
-              child: Text("Tambah"),
-            ),
-           ],
-        ),
-      ),
+      getPages: [
+        GetPage(name: '/', page: () => home()),
+        GetPage(name: '/page1', page: () => page1()),
+        GetPage(name: '/page2/:id', page: () => page2()),
+      ],
     );
   }
 }
