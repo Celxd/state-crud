@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatelessWidget {
@@ -15,7 +13,7 @@ class LoginPage extends StatelessWidget {
             onPressed: () {
               signInWithGoogle();
             },
-            child: Text('Login Page')),
+            child: const Text('Login Page')),
       ),
     );
   }

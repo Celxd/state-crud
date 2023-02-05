@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'Controller.dart';
 
 class home extends StatefulWidget {
@@ -15,58 +17,65 @@ class _homeState extends State<home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text("Home"),
+        title: const Text("Home"),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
            children: [
-            Text("Jumlah "),
-            Obx(() => Text("${control.count.toString()}")),
+            const Text("Jumlah "),
+            Obx(() => Text(control.count.toString())),
             ElevatedButton(
               onPressed: () {
                 control.increment();
               },
-              child: Text("Tambah"),
+              child: const Text("Tambah"),
             ),
             ElevatedButton(
               onPressed: () {
-                Get.toNamed("page1");
+                Get.toNamed("/crud");
               },
-              child: Text("Next Page"),
+              child: const Text("Crud Page"),
             ),
-            Text("Dynamic detail page:"),
+            const Text("Dynamic detail page:"),
             ElevatedButton(
               onPressed: () {
                 Get.toNamed("/page2/1");
               },
-              child: Text("Detail 1"),
+              child: const Text("Detail 1"),
             ),
             ElevatedButton(
               onPressed: () {
                 Get.toNamed("/page2/2",);
               },
-              child: Text("Detail 2"),
+              child: const Text("Detail 2"),
             ),
             ElevatedButton(
               onPressed: () {
                 Get.toNamed("/page2/3");
               },
-              child: Text("Detail 3"),
+              child: const Text("Detail 3"),
             ),
-            Text("Test Notification / Snack bar"),
+            const Text("Test Notification / Snack bar"),
             ElevatedButton(
               onPressed: () {
                 Get.snackbar("Testing", "Ini tes snackbar");
               },
-              child: Text("Show Snack Bar"),
+              child: const Text("Show Snack Bar"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                logout();
+              },
+              child: const Text("Log Out"),
             ),
            ],
         ),
       ),
     );
+  }
+
+  Future logout() async {
+    await FirebaseAuth.instance.signOut();
+    await GoogleSignIn().signOut();
   }
 }

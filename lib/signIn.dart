@@ -27,15 +27,13 @@ class _signInState extends State<signIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sign In"),
+        title: const Text("Sign In"),
       ),
       body: Center(
         child: Column(
-          children: [
+          children: const [
             Text("Sign In", style: TextStyle(fontSize: 48),),
-            TextField(
-
-            )
+            TextField()
           ],
         ),
       ),

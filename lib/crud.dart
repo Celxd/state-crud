@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:get/get.dart';
 
 class Crud extends StatefulWidget {
   const Crud({super.key});
@@ -19,7 +17,6 @@ class _CrudState extends State<Crud> {
       FirebaseFirestore.instance.collection('products');
 
   Future<void> _create([DocumentSnapshot? documentSnapshot]) async {
-
     await showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -56,11 +53,11 @@ class _CrudState extends State<Crud> {
                     final double? price =
                     double.tryParse(_priceController.text);
                     if (price != null) {
-                        await _products.add({"name": name, "price": price});
+                      await _products.add({"name": name, "price": price});
 
                       _nameController.text = '';
                       _priceController.text = '';
-                        Navigator.of(context).pop();
+                      Get.back();
                     }
                   },
                 )
@@ -72,7 +69,6 @@ class _CrudState extends State<Crud> {
   }
   Future<void> _update([DocumentSnapshot? documentSnapshot]) async {
     if (documentSnapshot != null) {
-
       _nameController.text = documentSnapshot['name'];
       _priceController.text = documentSnapshot['price'].toString();
     }
@@ -119,7 +115,7 @@ class _CrudState extends State<Crud> {
                             .update({"name": name, "price": price});
                       _nameController.text = '';
                       _priceController.text = '';
-                        Navigator.of(context).pop();
+                      Get.back();
                     }
                   },
                 )
@@ -131,11 +127,8 @@ class _CrudState extends State<Crud> {
 
   Future<void> _delete(String productId) async {
     await _products.doc(productId).delete();
-
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('You have successfully deleted a product')));
+    Get.snackbar('Success', 'You have successfully deleted a product');
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -159,13 +152,13 @@ class _CrudState extends State<Crud> {
                       child: Row(
                         children: [
                           IconButton(
-                              icon: const Icon(Icons.edit),
-                              onPressed: () =>
-                                  _update(documentSnapshot)),
+                            icon: const Icon(Icons.edit),
+                            onPressed: () =>
+                              _update(documentSnapshot)),
                           IconButton(
-                              icon: const Icon(Icons.delete),
-                              onPressed: () =>
-                                  _delete(documentSnapshot.id)),
+                            icon: const Icon(Icons.delete),
+                            onPressed: () =>
+                              _delete(documentSnapshot.id)),
                         ],
                       ),
                     ),
@@ -183,7 +176,7 @@ class _CrudState extends State<Crud> {
         child: const Icon(Icons.add),
 
       ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat
     );
   }
 }
