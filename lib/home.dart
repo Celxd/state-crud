@@ -24,11 +24,22 @@ class _homeState extends State<home> {
            children: [
             const Text("Jumlah "),
             Obx(() => Text(control.count.toString())),
+            Row(
+              children: [
             ElevatedButton(
               onPressed: () {
                 control.increment();
               },
               child: const Text("Tambah"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Get.toNamed("/responsive");
+              },
+              child: const Text("Tes Responsive"),
+            ),
+                
+              ],
             ),
             ElevatedButton(
               onPressed: () {
