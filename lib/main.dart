@@ -6,6 +6,7 @@ import 'package:state/crud.dart';
 import 'package:state/home.dart';
 import 'page2.dart';
 import 'loginPage.dart';
+import 'package:state/responsive.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,7 +39,9 @@ class MyApp extends StatelessWidget {
               return const home();
             }
           }
-          return const Center(child: CircularProgressIndicator(),);
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         },
       ),
       getPages: [
