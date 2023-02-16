@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:responsivedashboard/constants.dart';
-import 'package:responsivedashboard/util/my_box.dart';
-import 'package:responsivedashboard/util/my_tile.dart';
+import '../constants.dart';
+import '../util/my_box.dart';
+import '../util/my_tile.dart';
 
 class MobileScaffold extends StatefulWidget {
   const MobileScaffold({Key? key}) : super(key: key);

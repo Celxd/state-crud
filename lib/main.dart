@@ -4,9 +4,12 @@ import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:state/crud.dart';
 import 'package:state/home.dart';
+import 'package:state/responsive/mobile_body.dart';
+import 'package:state/responsive/responsive_layout.dart';
+import 'package:state/responsive/tablet_body.dart';
+import 'package:state/responsive/desktop_body.dart';
 import 'page2.dart';
 import 'loginPage.dart';
-import 'package:state/responsive.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,6 +51,11 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/', page: () => const home()),
         GetPage(name: '/crud', page: () => const Crud()),
         GetPage(name: '/page2/:id', page: () => const page2()),
+        GetPage(name: '/responsive', page: () => ResponsiveLayout(
+          mobileBody: const MobileScaffold(),
+          tabletBody: const TabletScaffold(),
+          desktopBody: const DesktopScaffold(),
+        )),
       ],
     );
   }
