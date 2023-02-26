@@ -47,6 +47,12 @@ class _homeState extends State<home> {
               },
               child: const Text("Crud Page"),
             ),
+            ElevatedButton(
+              onPressed: () {
+                Get.toNamed("/chat");
+              },
+              child: const Text("Chat Page"),
+            ),
             const Text("Dynamic detail page:"),
             ElevatedButton(
               onPressed: () {
@@ -78,6 +84,14 @@ class _homeState extends State<home> {
                 logout();
               },
               child: const Text("Log Out"),
+            ),
+            Container(
+              height: 40,
+              width: 40,
+              child: CircleAvatar(
+                radius: 48,
+                backgroundImage: NetworkImage(FirebaseAuth.instance.currentUser!.photoURL!),
+              ),
             ),
            ],
         ),

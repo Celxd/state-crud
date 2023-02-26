@@ -38,10 +38,11 @@ dependencies:
   cupertino_icons: ^1.0.5
   get:
   cloud_firestore: ^4.3.1
-  firebase_core: ^2.4.1
+  firebase_core: ^2.7.0
   google_sign_in: ^5.4.4
-  firebase_auth: ^4.2.5
-  firebase_messaging: ^14.2.2
+  firebase_auth: ^4.2.9
+  firebase_messaging: ^14.2.5
+  permission_handler: ^10.2.0
 
 
 dev_dependencies:
