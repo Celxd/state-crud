@@ -16,7 +16,7 @@ class _CrudState extends State<Crud> {
   final CollectionReference _products =
       FirebaseFirestore.instance.collection('products');
 
-  Future<void> _create([DocumentSnapshot? documentSnapshot]) async {
+  Future<void> _create() async {
     await showModalBottomSheet(
         isScrollControlled: true,
         context: context,
