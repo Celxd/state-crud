@@ -5,10 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:state/chatPage.dart';
 import 'package:state/crud.dart';
 import 'package:state/home.dart';
-import 'package:state/responsive/mobile_body.dart';
-import 'package:state/responsive/responsive_layout.dart';
-import 'package:state/responsive/tablet_body.dart';
-import 'package:state/responsive/desktop_body.dart';
+import 'package:state/home_responsive/mobile_body.dart';
+import 'package:state/home_responsive/responsive_layout.dart';
+import 'package:state/home_responsive/tablet_body.dart';
+import 'package:state/home_responsive/desktop_body.dart';
 import 'page2.dart';
 import 'loginPage.dart';
 import 'firebase_options.dart';
@@ -70,7 +70,11 @@ class MyApp extends StatelessWidget {
 
           if (snapshot.connectionState == ConnectionState.active) {
             if (snapshot.data == null) {
-              return const LoginPage();
+              return ResponsiveLayout(
+                mobileBody: const MobileScaffold(),
+                tabletBody: const TabletScaffold(),
+                desktopBody: const DesktopScaffold(),
+              );
             } else {
               return const home();
             }
@@ -85,11 +89,13 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/crud', page: () => const Crud()),
         GetPage(name: '/chat', page: () => const chatPage()),
         GetPage(name: '/page2/:id', page: () => const page2()),
-        GetPage(name: '/responsive', page: () => ResponsiveLayout(
-          mobileBody: const MobileScaffold(),
-          tabletBody: const TabletScaffold(),
-          desktopBody: const DesktopScaffold(),
-        )),
+        GetPage(
+            name: '/responsive',
+            page: () => ResponsiveLayout(
+                  mobileBody: const MobileScaffold(),
+                  tabletBody: const TabletScaffold(),
+                  desktopBody: const DesktopScaffold(),
+                )),
       ],
     );
   }
